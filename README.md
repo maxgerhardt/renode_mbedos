@@ -5,7 +5,8 @@
 * download [PlatformIO](https://docs.platformio.org/en/latest/installation.html#python-package-manager)
 * clone this repo
 * `pio run` 
-* ```
+* 
+```
 $ pio run 
 Processing disco_f407vg (platform: ststm32; board: disco_f407vg; framework: mbed)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
