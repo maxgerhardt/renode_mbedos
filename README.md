@@ -2,9 +2,38 @@
 
 ## Building 
 
-* download [PlatformIO](https://docs.platformio.org/en/latest/installation.html#python-package-manager). 
+* download [PlatformIO](https://docs.platformio.org/en/latest/installation.html#python-package-manager)
 * clone this repo
-* `pio run`
+* `pio run` 
+* ```
+$ pio run 
+Processing disco_f407vg (platform: ststm32; board: disco_f407vg; framework: mbed)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/ststm32/disco_f407vg.html
+PLATFORM: ST STM32 6.0.0 > ST STM32F4DISCOVERY
+HARDWARE: STM32F407VGT6 168MHz, 128KB RAM, 1MB Flash
+DEBUG: Current (stlink) On-board (stlink) External (blackmagic, jlink)
+PACKAGES: 
+ - framework-mbed 5.51401.200110 (5.14.1) 
+ - toolchain-gccarmnoneeabi 1.70201.0 (7.2.1)
+Collecting mbed sources...
+LDF: Library Dependency Finder -> http://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 4 compatible libraries
+Scanning dependencies...
+No dependencies
+Building in release mode
+Compiling .pio/build/disco_f407vg/FrameworkMbed/drivers/source/AnalogIn.o
+[...]
+Linking .pio/build/disco_f407vg/firmware.elf
+Checking size .pio/build/disco_f407vg/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [          ]   3.1% (used 4048 bytes from 131072 bytes)
+Flash: [=         ]   5.2% (used 54660 bytes from 1048576 bytes)
+Building .pio/build/disco_f407vg/firmware.bin
+======================== [SUCCESS] Took 38.66 seconds =======================
+```
 * generates `.pio/build/disco_f407vg/firmware.elf` 
 
 ## Activating RTOS
