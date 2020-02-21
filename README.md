@@ -37,17 +37,13 @@ Building .pio/build/disco_f407vg/firmware.bin
 ```
 * generates `.pio/build/disco_f407vg/firmware.elf` 
 
-## Activating RTOS
-
-See last line in `platformio.ini`. This doesn't change the execution result much.
-
 ## Expected results 
 
 UART2 output ("Hello world") and "Test" every second. LED state toggling every second.
 
 ## Used renode script 
 
-Adapted from `stm32f4_discovery.repl`
+Adapted from `stm32f4_discovery.resc`
 
 ```
 :name: STM32F4 Discovery
@@ -90,6 +86,10 @@ runMacro $reset
 Start in the renode console with `s @/<path to script>`.
 
 ## Execution results
+
+In the UART2 analyzer, nothing shows up. 
+
+In the renode console, messagegs are spammed regarding reading TIM5->CNT. 
 
 ```
 16:22:48.0917 [INFO] Loaded monitor commands from: /home/max/Downloads/renode/./scripts/monitor.py
@@ -213,4 +213,43 @@ Start in the renode console with `s @/<path to script>`.
 16:22:53.2090 [DEBUG] sysbus: Read value 0x0 from TIM5:CNT (0x40000C24).
 16:22:53.2091 [WARNING] sysbus: [cpu: 0x800266E] (tag: 'RCC_CR') ReadDoubleWord from non existing peripheral at 0x40023800, returning 0xA020083.
 [... ad infinitum ...]
+``` 
+
+## Activating RTOS
+
+See last line in `platformio.ini` and `prebuilt_firmware_rtos.elf`. This causes renode to idle at some point with still not UART2 output. 
+
+```
+16:36:51.7481 [INFO] Loaded monitor commands from: /home/max/Downloads/renode/./scripts/monitor.py
+16:36:55.0670 [INFO] Including script: /home/max/Downloads/renode/scripts/single-node/stm32f4_discovery_mbedos.resc
+16:36:55.0964 [INFO] System bus created.
+16:36:55.8590 [DEBUG] Segment size automatically calculated to value 16MiB
+16:36:55.8598 [DEBUG] Segment size automatically calculated to value 64KiB
+16:36:55.8599 [DEBUG] Segment size automatically calculated to value 128KiB
+16:36:56.0666 [DEBUG] Segment size automatically calculated to value 64KiB
+16:36:56.5543 [INFO] sysbus: Loaded SVD: /tmp/renode-20116/5aa29524-622a-43ea-9653-7532953becaa.tmp. Name: STM32F40x. Description: STM32F40x.
+16:36:56.8959 [DEBUG] sysbus: Loading ELF /home/max/Downloads/renode/FWs/firmware_rtos.elf.
+16:36:56.9220 [INFO] sysbus: Loading segment of 57712 bytes length at 0x8000000.
+16:36:56.9385 [DEBUG] sysbus: Segment loaded.
+16:36:56.9387 [INFO] sysbus: Loading segment of 10056 bytes length at 0x800E170.
+16:36:56.9388 [DEBUG] sysbus: Segment loaded.
+16:36:56.9389 [INFO] sysbus: Loading segment of 256 bytes length at 0x20000188.
+16:36:56.9405 [DEBUG] sysbus: Segment loaded.
+16:36:57.0958 [INFO] cpu: Guessing VectorTableOffset value to be 0x8000000.
+16:36:57.0988 [INFO] cpu: Setting initial values: PC = 0x8003AC1, SP = 0x20020000.
+16:36:57.1225 [INFO] STM32F4_Discovery: Machine started.
+16:36:57.2579 [WARNING] sysbus: [cpu: 0x8003974] (tag: 'RCC_CR') ReadDoubleWord from non existing peripheral at 0x40023800, returning 0xA020083.
+16:36:57.2599 [DEBUG] sysbus: Write value 0xA020083 to RCC:CR (0x40023800).
+16:36:57.2600 [DEBUG] sysbus: Write value 0x0 to RCC:CFGR (0x40023808).
+16:36:57.2600 [WARNING] sysbus: [cpu: 0x8003974] (tag: 'RCC_CR') ReadDoubleWord from non existing peripheral at 0x40023800, returning 0xA020083.
+16:36:57.2600 [DEBUG] sysbus: Write value 0xA020083 to RCC:CR (0x40023800).
+16:36:57.2601 [DEBUG] sysbus: Write value 0x24003010 to RCC:PLLCFGR (0x40023804).
+16:36:57.2602 [WARNING] sysbus: [cpu: 0x8003974] (tag: 'RCC_CR') ReadDoubleWord from non existing peripheral at 0x40023800, returning 0xA020083.
+16:36:57.2602 [DEBUG] sysbus: Write value 0xA020083 to RCC:CR (0x40023800).
+16:36:57.2602 [DEBUG] sysbus: Write value 0x0 to RCC:CIR (0x4002380C).
+16:36:57.2635 [WARNING] nvic: Unhandled read from offset 0xD90.
+16:36:57.2649 [WARNING] sysbus: [cpu: 0x8001332] ReadDoubleWord from non existing peripheral at 0x3C.
+16:36:57.2650 [WARNING] sysbus: [cpu: 0x8001332] ReadDoubleWord from non existing peripheral at 0x34.
+16:36:57.2650 [WARNING] sysbus: [cpu: 0x8001332] ReadDoubleWord from non existing peripheral at 0x30.
+[nothing]
 ``` 
